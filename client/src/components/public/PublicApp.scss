@@ -1,0 +1,114 @@
+#app {
+    height: 100%;
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    align-items: center;
+    color: #2c3e50;
+    display: flex;
+    flex-direction: column;
+    overflow: unset;
+}
+
+#nav {
+    text-align: center;
+    height: 64px;
+    width: 100%;
+    display: flex;
+    background-color: #f24844;
+    box-shadow: 0px 1px 10px #999;
+    z-index: 1;
+    position: relative;
+
+a {
+    font-weight: bold;
+    color: #2c3e50;
+
+    &.router-link-exact-active {
+    color: #42b983;
+    }
+}
+}
+
+.nav-logo-container {
+    object-fit: contain;
+}
+
+.nav-logo {
+    height: 64px;
+}
+
+.link-container {
+    justify-content: center;
+}
+
+.logout-button {
+    margin-right: 1rem;
+    color: #ffffff;
+    border-color: #ffffff;
+}
+
+.nav-flex {
+    flex: 1;
+}
+
+.nav-flex-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.public-container {
+    overflow: auto;
+    width: 100%;
+    height: 100%;
+}
+
+.public-content {
+    background-color: #ffffff;
+    margin: 0 auto;
+    width: 100vw;
+    max-width: 800px;
+    padding: 1rem;
+}
+
+.language-dropdown {
+    position: absolute;
+    right: 1rem;
+    top: 14px;
+    margin: auto 0;
+}
+
+.language-dropdown .MuiButton-root {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.public-container .menu-button-container > * {
+    margin: 1rem 1rem 1rem 0;
+}
+
+pre {
+    font-family: inherit;
+    white-space: break-spaces;
+}
+
+.menu-week p {
+    font-weight: bold;
+}
+
+.MuiCard-root {
+    margin: 1rem 0;
+}
+
+.splitter-box {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    padding: 1rem 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.footer {
+    height: 160px;
+    background-color: #e0e0e0;
+}
