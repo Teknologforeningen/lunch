@@ -25,7 +25,6 @@ const AdminPosts = () => {
     
     useEffect(() => {
         RequestService.getDataRequest("posts/" + currLang).then(postList => {
-            console.log(postList);
             const tmp = postList.reverse();
             setPosts(tmp);
         });
@@ -37,7 +36,6 @@ const AdminPosts = () => {
 
     const refreshPosts = () => {
         RequestService.getDataRequest("posts/" + currLang).then(postList => {
-            console.log(postList);
             const tmp = postList.reverse();
             setPosts(tmp);
         });
@@ -61,7 +59,6 @@ const AdminPosts = () => {
 
     const handleAddSave = () => {
         setOpenAdd(false);
-        console.log(PostObj);
         const formData  = new FormData();
         formData.append("title", PostObj.title);
         formData.append("content", PostObj.content);
@@ -102,7 +99,6 @@ const AdminPosts = () => {
 
     const handleDelete = () => {
         setOpenDelete(false);
-        console.log(DeleteId);
         RequestService.deleteRequest("posts", DeleteId)
         .then(() => {
             refreshPosts();

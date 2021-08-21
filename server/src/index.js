@@ -14,7 +14,7 @@ require('./passport')(passport);
 // Models
 const User = require('./models/User');
 
-mongoose.connect('mongodb://localhost/lunch');
+mongoose.connect('mongodb://mongo/lunch');
 
 mongoose.connection.once('open', () => {
     console.log('Connected to lunch db');
@@ -32,19 +32,14 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.post('/api/login', async (req, res) => {
-    console.log("Trying to log in")
     try {
-        console.log(req.body)
         const { username, password } = req.body;
 
         User.findOne({ username: username }, (err, user) => {
-            console.log(user);
             if (user) {
                 const isValid = validPassword(password, user.hash, user.salt);
-                console.log(isValid);
                 if (isValid) {
                     const jwt = issueJWT(user);
-                    console.log(jwt);
                     return res.status(200).json({ success: true, user: user, token: jwt.token, expiresIn: jwt.expires });
                 } else {
                     return res.status(401).json({ success: false, msg: "Wrong Credentials" });
@@ -72,6 +67,13 @@ app.use('/api/hours', hours);
 app.use('/api/prices', prices);
 app.use('/api/messages', messages);
 app.use('/api/menu', menu);
+
+const path = require('path');
+
+app.use(express.static(path.resolve(__dirname, '../../client/build')));
+app.get('*', (req, res) => {
+   res.sendFile(path.resolve(__dirname, '../../client/build', 'index.html')); 
+});
 
 const port = process.env.PORT || 5000;
 

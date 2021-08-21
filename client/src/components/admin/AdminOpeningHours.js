@@ -19,7 +19,6 @@ const AdminOpeningHours = () => {
     
     useEffect(() => {
         RequestService.getDataRequest("hours/" + currLang).then(hourObj => {
-            console.log(hourObj);
             setHours(hourObj.hours);
             setHoursEdit(hourObj.hours);
             setHourObj(hourObj);
@@ -46,10 +45,7 @@ const AdminOpeningHours = () => {
         setOpen(false);
         const tmpObj = HourObj;
         tmpObj.hours = HoursEdit;
-        console.log(tmpObj);
-        RequestService.sendRequest("hours/" + currLang, tmpObj).then(() => {
-            console.log("Hours saved");
-        })
+        RequestService.sendRequest("hours/" + currLang, tmpObj)
         setHours(HoursEdit);
     }
 

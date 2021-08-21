@@ -19,7 +19,6 @@ const PublicPosts = () => {
     
     useEffect(() => {
         RequestService.getDataRequest("posts/" + currLang).then(postList => {
-            console.log(postList);
             const tmp = postList.reverse();
             setPosts(tmp);
         });

@@ -9,7 +9,6 @@ const PublicHours = () => {
     
     useEffect(() => {
         RequestService.getDataRequest("hours/" + currLang).then(hourObj => {
-            console.log(hourObj);
             setHours(hourObj.hours);
         });
 

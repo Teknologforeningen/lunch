@@ -33,11 +33,9 @@ class RequestService {
             })
             .then (response => {
                 axios.defaults.headers.Authorization = response.data.token;
-                console.log(response);
                 resolve(true);
             })
             .catch (error => {
-                console.log(error.response.data);
                 console.log(error);
                 resolve(false);
             });
@@ -72,7 +70,6 @@ class RequestService {
         return new Promise ((resolve,reject) => {
             axios.get(url + endPoint).then((res) => {
                 const data = res.data;
-                // console.log(data);
                 resolve(data);
             })
             .catch((err)=> {
@@ -93,14 +90,6 @@ class RequestService {
 
             }
         });
-        // .then(function (response) {
-        //     // handle success
-        //     console.log(response);
-        // })
-        // .catch(function (response) {
-        //     // handle error
-        //     console.log(response);
-        // });
     }
 
     static deleteRequest(endPoint, id) {

@@ -41,7 +41,6 @@ const AdminLogin = ({ loginIn }) => {
     }
 
     const handleLogin = () => {
-        console.log(usernameValue, passwordValue);
         loginIn(usernameValue, passwordValue)
     }
 

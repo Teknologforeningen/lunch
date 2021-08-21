@@ -27,14 +27,12 @@ router.post('/', passport.authenticate('jwt', {session: false}), (req, res) => {
                 error: err
             });
         } else if (result) {
-            //console.log("exists");
             result.description = price.description;
             result.priceStudent = price.priceStudent;
             result.priceNormal = price.priceNormal;
             result.language = price.language
             result.save();
         } else {
-            //console.log("does not exist")
             const newPrice = new Price({
                 description: price.description,
                 priceStudent: price.priceStudent,

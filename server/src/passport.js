@@ -16,10 +16,8 @@ const options = {
 
 
 const strategy = new JwtStrategy(options, async (payload, done) => {
-    console.log("Executing jwt strategy");
     try {
         User.findOne({ _id: payload.sub }, (err, user) => {
-            console.log(user);
             if (user) {
                 return done(null, user);
             } else {
@@ -28,7 +26,6 @@ const strategy = new JwtStrategy(options, async (payload, done) => {
         });
         
     } catch (error) {
-        console.log(error)
         return done(error, null)
     }
 });

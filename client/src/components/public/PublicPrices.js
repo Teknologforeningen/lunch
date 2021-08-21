@@ -14,10 +14,8 @@ const PublicPrices = () => {
     const { t, i18n } = useTranslation();
     const [Prices, setPrices] = useState([]);
     const [currLang, setCurrLang] = useState(i18n.language);
-    
     useEffect(() => {
         RequestService.getDataRequest("prices/" + currLang).then(priceList => {
-            console.log(priceList);
             setPrices(priceList);
         });
 

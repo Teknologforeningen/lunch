@@ -6,7 +6,7 @@ const Price = require('./models/Price');
 const Message = require('./models/Message');
 const genPasswordHash = require('./utils').genPasswordHash;
 
-mongoose.connect('mongodb://localhost/lunch');
+mongoose.connect('mongodb://mongo/lunch');
 
 mongoose.connection.once('open', () => {
     console.log('Connected to lunch db');
@@ -87,4 +87,4 @@ newMessage.save(err => {
     }
 });
 
-process.exitCode = 0;
+process.exit(0);

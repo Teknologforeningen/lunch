@@ -19,7 +19,6 @@ const AdminMessages = () => {
     
     useEffect(() => {
         RequestService.getDataRequest("messages/" + currLang).then(msgObj => {
-            console.log(msgObj);
             setMessage(msgObj.message);
             setMessageEdit(msgObj.message);
             setMsgObj(msgObj);
@@ -46,10 +45,7 @@ const AdminMessages = () => {
         setOpen(false);
         const tmpObj = MsgObj;
         tmpObj.message = MessageEdit;
-        console.log(tmpObj);
-        RequestService.sendRequest("messages/" + currLang, tmpObj).then(() => {
-            console.log("Message saved");
-        })
+        RequestService.sendRequest("messages/" + currLang, tmpObj)
         setMessage(MessageEdit);
     }
 

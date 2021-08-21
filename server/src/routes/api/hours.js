@@ -19,7 +19,6 @@ router.get('/:lang', (req, res) => {
 });
 
 router.post('/:lang', passport.authenticate('jwt', {session: false}), (req, res) => {
-    console.log("Adding hours");
     const { hours, language } = req.body.obj;
     Hours.findOne({ 'language': req.params.lang }, (err, dbHours) => {
         if (err) {

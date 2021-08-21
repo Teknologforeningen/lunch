@@ -13,7 +13,6 @@ const AdminApp = () => {
     const [isLoggedIn, setLoggedIn] = useState(false);
     
     const handleLogin = (username, password) => {
-        console.log("Loging in with: " + username, password);
         RequestService.login(username, password).then(loginStatus => {
             setLoggedIn(loginStatus);
         })

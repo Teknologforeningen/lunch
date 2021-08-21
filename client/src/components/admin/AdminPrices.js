@@ -28,7 +28,6 @@ const AdminPrices = () => {
     
     useEffect(() => {
         RequestService.getDataRequest("prices/" + currLang).then(priceList => {
-            console.log(priceList);
             setPrices(priceList);
         });
 
@@ -39,7 +38,6 @@ const AdminPrices = () => {
 
     const refreshPrices = () => {
         RequestService.getDataRequest("prices/" + currLang).then(priceList => {
-            console.log(priceList);
             setPrices(priceList);
         });
     }
@@ -61,7 +59,6 @@ const AdminPrices = () => {
 
     const handleAddSave = () => {
         setOpenAdd(false);
-        console.log(PricesObj);
         RequestService.sendRequest("prices/", PricesObj)
         .then(() => {
             refreshPrices();
@@ -97,7 +94,6 @@ const AdminPrices = () => {
 
     const handleDelete = () => {
         setOpenDelete(false);
-        console.log(DeleteId);
         RequestService.deleteRequest("prices", DeleteId)
         .then(() => {
             refreshPrices();

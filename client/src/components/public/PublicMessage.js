@@ -10,7 +10,6 @@ const PublicMessage = () => {
     
     useEffect(() => {
         RequestService.getDataRequest("messages/" + currLang).then(msgObj => {
-            console.log(msgObj);
             setMessage(msgObj.message);
         });
 
