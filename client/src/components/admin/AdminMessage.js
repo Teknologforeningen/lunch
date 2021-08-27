@@ -8,6 +8,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import i18n from '../../i18n';
 
 const AdminMessages = () => {
     const { t, i18n } = useTranslation();
@@ -25,7 +26,7 @@ const AdminMessages = () => {
         });
 
         i18n.on('languageChanged', () => {
-            setCurrLang(i18n.language)
+            setCurrLang(i18n.language);
         });
     }, [i18n, currLang]);
 
@@ -43,7 +44,7 @@ const AdminMessages = () => {
 
     const handleSave = () => {
         setOpen(false);
-        const tmpObj = MsgObj;
+        const tmpObj = MsgObj ? MsgObj : {};
         tmpObj.message = MessageEdit;
         RequestService.sendRequest("messages/" + currLang, tmpObj)
         setMessage(MessageEdit);
@@ -51,7 +52,7 @@ const AdminMessages = () => {
 
     return (
         <>
-        <h1>{"Announcements" + ":"}</h1>
+        <h1>{t('Announcements')}</h1>
         {Message !== ""?
             <>
             <h3>{Message}</h3>

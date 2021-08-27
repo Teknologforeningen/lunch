@@ -19,6 +19,7 @@ const PublicPosts = () => {
     
     useEffect(() => {
         RequestService.getDataRequest("posts/" + currLang).then(postList => {
+            console.log(url);
             const tmp = postList.reverse();
             setPosts(tmp);
         });
@@ -31,7 +32,7 @@ const PublicPosts = () => {
     return (
         Posts.length !== 0?
             <>
-            <h1>{t('posts') + ":"}</h1>
+            <h1>{t('posts')}</h1>
             {Posts.map(post => {
                 return (
                     <Card key={post._id} className="">

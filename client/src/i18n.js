@@ -20,16 +20,16 @@ const resources = {
   },
   swe: {
     translation: {
-      "Announcements": "Upplysningar",
-      "OpenHours": "Öppentider",
+      "Announcements": "Meddelanden",
+      "OpenHours": "Öppettider",
       "today": "Idag",
       "week": "Vecka",
       "menu": "Meny",
       "posts": "Artiklar",
-      "prices": "Priser",
+      "prices": "Prislista",
       "description": "Namn",
-      "studentprice": "Studerande Pris",
-      "normalprice": "Normal Pris"
+      "studentprice": "Studerandepris",
+      "normalprice": "Normalt Pris"
     }
   },
   fin: {
@@ -42,7 +42,7 @@ const resources = {
       "posts": "Artikkelit",
       "prices": "Hinnasto",
       "description": "Nimi",
-      "studentprice": "Opiskelija Hinta",
+      "studentprice": "Opiskelijahinta",
       "normalprice": "Normaali Hinta"
     }
   }

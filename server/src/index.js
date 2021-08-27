@@ -9,12 +9,13 @@ const passport = require("passport");
 const issueJWT = require('./utils').issueJWT;
 const validPassword = require('./utils').validPassword;
 
+require('dotenv').config();
 require('./passport')(passport);
 
 // Models
 const User = require('./models/User');
-
-mongoose.connect('mongodb://mongo/lunch');
+console.log(process.env.DBURL);
+mongoose.connect(process.env.DBURL);
 
 mongoose.connection.once('open', () => {
     console.log('Connected to lunch db');
@@ -45,7 +46,6 @@ app.post('/api/login', async (req, res) => {
                     return res.status(401).json({ success: false, msg: "Wrong Credentials" });
                 }
             } else {
-                console.log(err);
                 return res.status(401).json(err);
             }
         });

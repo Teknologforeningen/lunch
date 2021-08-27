@@ -12,6 +12,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
+import i18n from '../../i18n';
 
 const AdminPosts = () => {
     const { t, i18n } = useTranslation();
@@ -107,7 +108,7 @@ const AdminPosts = () => {
 
     return (
         <>
-        <h1>{t('Posts') + ":"}</h1>
+        <h1>{t('posts')}</h1>
         {Posts.length > 0?
             <>
             <List dense={false}>

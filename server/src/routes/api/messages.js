@@ -29,7 +29,7 @@ router.post('/:lang', passport.authenticate('jwt', {session: false}), (req, res)
         } else if (!message) {
             const newMessage = new Message({
                 message: msgObj.message,
-                language: msgObj.language
+                language: req.params.lang
             });
             newMessage.save();
         }

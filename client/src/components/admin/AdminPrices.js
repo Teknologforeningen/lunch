@@ -15,6 +15,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
+import i18n from '../../i18n';
 
 const AdminPrices = () => {
     const { t, i18n } = useTranslation();
@@ -102,7 +103,7 @@ const AdminPrices = () => {
 
     return (
         <>
-        <h1>{'Prices' + ":"}</h1>
+        <h1>{t('prices')}</h1>
         {Prices.length > 0?
             <>
             <TableContainer component={Paper}>

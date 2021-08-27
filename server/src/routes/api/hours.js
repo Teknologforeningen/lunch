@@ -19,7 +19,7 @@ router.get('/:lang', (req, res) => {
 });
 
 router.post('/:lang', passport.authenticate('jwt', {session: false}), (req, res) => {
-    const { hours, language } = req.body.obj;
+    const hours = req.body.obj.hours;
     Hours.findOne({ 'language': req.params.lang }, (err, dbHours) => {
         if (err) {
             return res.status(500).json({
@@ -29,7 +29,7 @@ router.post('/:lang', passport.authenticate('jwt', {session: false}), (req, res)
         } else if (!dbHours) {
             const newHours = new Hours({
                 hours: hours,
-                language: language
+                language: req.params.lang
             });
             newHours.save();
             return res.status(200).json({msg: "New hours added"});

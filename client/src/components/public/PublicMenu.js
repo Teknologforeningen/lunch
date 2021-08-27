@@ -30,7 +30,7 @@ const PublicMenu = () => {
 
     return (
         <>
-            <h1>{t('menu') + ":"}</h1>
+            <h1>{t('menu')}</h1>
             { MenuType === "today/" ?
                 <pre>{Menu}</pre>
             :

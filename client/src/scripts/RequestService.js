@@ -1,12 +1,9 @@
 import axios from 'axios';
 
-const url = 'http://localhost:5000/api/';
+const url = process.env.REACT_APP_BACKEND_URL;
 
 axios.interceptors.request.use(
     config => {
-        // if (config.url) {
-        //     const { origin } = new URL(config.url);
-        // }
         const allowedOrigins = [url];
         const token = localStorage.getItem('token');
         if (allowedOrigins.includes(origin)) {
@@ -36,7 +33,6 @@ class RequestService {
                 resolve(true);
             })
             .catch (error => {
-                console.log(error);
                 resolve(false);
             });
         });

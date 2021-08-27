@@ -21,7 +21,7 @@ const PublicHours = () => {
     return (
         Hours !== ""?
             <>
-            <h1>{t('OpenHours') + ":"}</h1>
+            <h1>{t('OpenHours')}</h1>
             <pre>{Hours}</pre>
             </>
         : null 

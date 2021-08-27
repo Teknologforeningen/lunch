@@ -8,6 +8,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import i18n from '../../i18n';
 
 const AdminOpeningHours = () => {
     const { t, i18n } = useTranslation();
@@ -43,7 +44,11 @@ const AdminOpeningHours = () => {
 
     const handleSave = () => {
         setOpen(false);
-        const tmpObj = HourObj;
+        if(!HourObj)
+        {
+            setHourObj(HourObj);
+        }
+        const tmpObj = HourObj ? HourObj : {};
         tmpObj.hours = HoursEdit;
         RequestService.sendRequest("hours/" + currLang, tmpObj)
         setHours(HoursEdit);
@@ -51,7 +56,7 @@ const AdminOpeningHours = () => {
 
     return (
         <>
-        <h1>{t('Opening Hours') + ":"}</h1>
+        <h1>{t('OpenHours')}</h1>
         {Hours !== ""?
             <>
             <pre>{Hours}</pre>
