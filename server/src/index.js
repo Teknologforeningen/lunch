@@ -14,8 +14,13 @@ require('./passport')(passport);
 
 // Models
 const User = require('./models/User');
-console.log(process.env.DBURL);
-mongoose.connect(process.env.DBURL);
+
+if(process.env.MONGODB_USER && process.env.MONGODB_PW) {
+    mongoose.connect("mongodb://" + process.env.MONGODB_USER + ":" + process.env.MONGODB_PW + "@" + process.env.DBURL);
+    mongoose.connection.useDb(process.env.DBNAME);
+} else {
+    mongoose.connect("mongodb://" + process.env.DBURL + "/" + process.env.DBNAME);
+}
 
 mongoose.connection.once('open', () => {
     console.log('Connected to lunch db');
