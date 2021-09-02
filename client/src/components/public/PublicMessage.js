@@ -20,10 +20,7 @@ const PublicMessage = () => {
 
     return (
         Message !== ""?
-            <>
-            <h1>{t('Announcements')}</h1>
-            <h3>{Message}</h3>
-            </>
+            <>{Message}</>
         : null 
     )
 }

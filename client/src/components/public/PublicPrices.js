@@ -43,8 +43,8 @@ const PublicPrices = () => {
                     <TableCell component="th" scope="row">
                         {price.description}
                     </TableCell>
-                    <TableCell align="left">{price.priceStudent}</TableCell>
-                    <TableCell align="left">{price.priceNormal}</TableCell>
+                    <TableCell align="left">{price.priceStudent ? price.priceStudent.toFixed(2) : price.priceStudent}</TableCell>
+                    <TableCell align="left">{price.priceNormal ? price.priceNormal.toFixed(2) : price.priceNormal}</TableCell>
                     </TableRow>
                 ))}
                 </TableBody>
