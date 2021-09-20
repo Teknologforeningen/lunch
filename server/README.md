@@ -1,11 +1,12 @@
 # LunchServer
 A node.js server for Täffä LUNCH
 
-node src/create.js
+## Vars
+You should define variables for the server, examples can be found in `.env.example` 
 
-http://localhost:5000/login
+## Running the server
+The server can be run with `npm install && npm run`
 
-{
-	"username": "test",
-	"password": "123"
-}
+## Creating a user
+A user can be created with 
+`node src/create.js`
