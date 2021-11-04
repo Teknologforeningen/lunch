@@ -10,7 +10,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import i18n from '../../i18n';
 
-const AdminMessages = () => {
+const AdminAnnouncements = () => {
     const { t, i18n } = useTranslation();
     const [MsgObj, setMsgObj] = useState({});
     const [Message, setMessage] = useState("");
@@ -19,7 +19,7 @@ const AdminMessages = () => {
     const [open, setOpen] = useState(false);
     
     useEffect(() => {
-        RequestService.getDataRequest("messages/" + currLang).then(msgObj => {
+        RequestService.getDataRequest("announcements/" + currLang).then(msgObj => {
             setMessage(msgObj.message);
             setMessageEdit(msgObj.message);
             setMsgObj(msgObj);
@@ -46,13 +46,13 @@ const AdminMessages = () => {
         setOpen(false);
         const tmpObj = MsgObj ? MsgObj : {};
         tmpObj.message = MessageEdit;
-        RequestService.sendRequest("messages/" + currLang, tmpObj)
+        RequestService.sendRequest("announcements/" + currLang, tmpObj)
         setMessage(MessageEdit);
     }
 
     return (
         <>
-        <h1>{t('Info')}</h1>
+        <h1>{t('Announcements')}</h1>
         {Message !== ""?
             <>
             <h3>{Message}</h3>
@@ -97,4 +97,4 @@ const AdminMessages = () => {
     )
 }
 
-export default AdminMessages;
+export default AdminAnnouncements;

@@ -5,6 +5,7 @@ import AdminMessage from './AdminMessage';
 import AdminOpeningHours from './AdminOpeningHours';
 import AdminPosts from './AdminPosts';
 import AdminPrices from './AdminPrices';
+import AdminAnnouncements from './AdminAnnouncement';
 import RequestService from '../../scripts/RequestService';
 
 import './AdminApp.scss';
@@ -25,6 +26,7 @@ const AdminApp = () => {
                 <h1>Admin</h1>
                 < AdminLanguageSelector/>
                 < AdminMessage/>
+                < AdminAnnouncements />
                 < AdminOpeningHours/>
                 < AdminPosts/>
                 < AdminPrices/>

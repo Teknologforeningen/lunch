@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const User = require('./models/User');
 const genPasswordHash = require('./utils').genPasswordHash;
-require('dotenv').config();
+require('dotenv').config({ path: '../.env' });
 
 if(process.env.MONGODB_USER && process.env.MONGODB_PW) {
     mongoose.connect("mongodb://" + process.env.MONGODB_USER + ":" + process.env.MONGODB_PW + "@" + process.env.DBURL);
@@ -15,6 +15,8 @@ mongoose.connection.once('open', () => {
 }).on('error', (err) => {
     console.log('Failed to connect to db: ' + err);
 });
+
+console.log(process.env.ADMIN_PW)
 
 const saltHash = genPasswordHash(process.env.ADMIN_PW);
 

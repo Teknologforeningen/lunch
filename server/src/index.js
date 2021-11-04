@@ -66,12 +66,14 @@ const hours = require('./routes/api/hours');
 const prices = require('./routes/api/prices');
 const messages = require('./routes/api/messages');
 const menu = require('./routes/api/menu');
+const announcemetns = require('./routes/api/annoucements');
 
 app.use('/api/posts', posts);
 app.use('/api/hours', hours);
 app.use('/api/prices', prices);
 app.use('/api/messages', messages);
 app.use('/api/menu', menu);
+app.use('/api/announcements', announcemetns);
 
 const path = require('path');
 

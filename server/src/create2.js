@@ -3,6 +3,7 @@ const Message = require('./models/Message');
 const Hours = require('./models/Hours');
 const Post = require('./models/Post');
 const Price = require('./models/Price');
+const Announcement = require('./models/Announcement');
 
 mongoose.connect('mongodb://localhost/lunch');
 
@@ -152,6 +153,19 @@ newMessageFin.save(err => {
         console.log('Could not save message');
     } else {
         console.log('Message saved successfully');
+    }
+});
+
+const newAnnouncementEng = new Announcement({
+    message: 'We have ebola',
+    language: "eng"
+});
+
+newAnnouncementEng.save(err => {
+    if (err) {
+        console.log('Could not save announcement');
+    } else {
+        console.log('Announcement saved successfully');
     }
 });
 

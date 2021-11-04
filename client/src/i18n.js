@@ -16,7 +16,8 @@ const resources = {
       "description": "Name",
       "studentprice": "Student Price",
       "normalprice": "Normal Price",
-      "ContactUs": "Contact us"
+      "ContactUs": "Contact us",
+      "Info": "Information"
     }
   },
   swe: {
@@ -31,7 +32,8 @@ const resources = {
       "description": "Namn",
       "studentprice": "Studerandepris",
       "normalprice": "Normalt Pris",
-      "ContactUs": "Ta kontakt"
+      "ContactUs": "Ta kontakt",
+      "Info": "Information"
     }
   },
   fin: {
@@ -46,7 +48,8 @@ const resources = {
       "description": "Nimi",
       "studentprice": "Opiskelijahinta",
       "normalprice": "Normaali Hinta",
-      "ContactUs": "Ota yhteyttä"
+      "ContactUs": "Ota yhteyttä",
+      "Info": "Informaatio"
     }
   }
 };

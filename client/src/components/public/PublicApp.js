@@ -1,5 +1,6 @@
 import PublicNavbar from './PublicNavbar';
 import PublicMessage from './PublicMessage';
+import PublicAnnouncement from './PublicAnnouncement';
 import PublicHours from './PublicHours';
 import PublicMenu from './PublicMenu';
 import PublicPosts from './PublicPosts';
@@ -13,9 +14,8 @@ const PublicApp = () => {
             <PublicNavbar />
             <div className="public-container">
                 <div className="public-content">
-                    <div className="splitter-box">
-                        < PublicMessage/>
-                    </div>
+                    < PublicMessage/>
+                    < PublicAnnouncement/>
                     <div className="splitter-box">
                         < PublicHours/>
                     </div>
