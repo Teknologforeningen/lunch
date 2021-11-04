@@ -109,6 +109,18 @@ pre {
 }
 
 .footer {
-    height: 160px;
+    height: 40px;
     background-color: #e0e0e0;
+    display: flex;
+    justify-content: center;
+}
+
+.footer-content {
+    width: 100vw;
+    max-width: 800px;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
 }

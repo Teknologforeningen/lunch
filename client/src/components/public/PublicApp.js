@@ -29,7 +29,7 @@ const PublicApp = () => {
                         < PublicPrices/>
                     </div>
                 </div>
-            {/* < PublicFooter/>  */}
+            < PublicFooter/>
             </div>
         </div>
     );
