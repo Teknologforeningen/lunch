@@ -71,6 +71,7 @@ a {
     width: 100vw;
     max-width: 800px;
     padding: 1rem;
+    min-height: calc(100% - 40px);
 }
 
 .language-dropdown {

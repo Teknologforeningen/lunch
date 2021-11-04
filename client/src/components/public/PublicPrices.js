@@ -26,7 +26,7 @@ const PublicPrices = () => {
 
     return (
         Prices.length !== 0?
-            <>
+            <div className="splitter-box">
             <h1>{t('prices')}</h1>
             <TableContainer component={Paper}>
             <Table aria-label="simple table">
@@ -50,7 +50,7 @@ const PublicPrices = () => {
                 </TableBody>
             </Table>
             </TableContainer>
-            </>
+            </div>
         : null 
     )
 }

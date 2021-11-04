@@ -29,7 +29,7 @@ const PublicMenu = () => {
     }
 
     return (
-        <>
+        <div className="splitter-box">   
             <h1>{t('menu')}</h1>
             { MenuType === "today/" ?
                 <pre>{Menu}</pre>
@@ -50,7 +50,7 @@ const PublicMenu = () => {
                     onClick={() => toggleMenu("week/")}
                     >{t("week")}</Button>
             </div>
-        </>
+        </div>
     )
 }
 

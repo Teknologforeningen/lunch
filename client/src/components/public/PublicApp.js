@@ -16,18 +16,10 @@ const PublicApp = () => {
                 <div className="public-content">
                     < PublicMessage/>
                     < PublicAnnouncement/>
-                    <div className="splitter-box">
-                        < PublicHours/>
-                    </div>
-                    <div className="splitter-box">
-                        < PublicMenu/>
-                    </div>
-                    <div className="splitter-box">
-                        < PublicPosts/>
-                    </div>
-                    <div className="splitter-box">
-                        < PublicPrices/>
-                    </div>
+                    < PublicHours/>
+                    < PublicMenu/>
+                    < PublicPosts/>
+                    < PublicPrices/>
                 </div>
             < PublicFooter/>
             </div>

@@ -29,9 +29,9 @@ const PublicPosts = () => {
 
     return (
         Posts.length !== 0?
-            <>
+            <div className="splitter-box">
             <h1>{t('posts')}</h1>
-            {Posts.map(post => {
+                {Posts.map(post => {
                 return (
                     <Card key={post._id} className="">
                         <CardActionArea>
@@ -57,8 +57,8 @@ const PublicPosts = () => {
                     </Card>
                 )
             })}
-            </>
-        : "no posts"
+            </div>
+        : null
     )
 }
 
