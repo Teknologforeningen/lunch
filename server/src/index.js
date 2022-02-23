@@ -14,23 +14,20 @@ require('./passport')(passport);
 
 // Models
 const User = require('./models/User');
+const mongoUrl = process.env.MONGODB_USER && process.env.MONGODB_PW
+    ? `mongodb://${process.env.MONGODB_USER}:${process.env.MONGODB_PW}@${process.env.DBURL}/${process.env.DBNAME}?authSource=admin`
+    : `mongodb://${process.env.DBURL}/${process.env.DBNAME}`;
 
-if(process.env.MONGODB_USER && process.env.MONGODB_PW) {
-    mongoose.connect("mongodb://" + process.env.MONGODB_USER + ":" + process.env.MONGODB_PW + "@" + process.env.DBURL);
-    mongoose.connection.useDb(process.env.DBNAME);
-} else {
-    mongoose.connect("mongodb://" + process.env.DBURL + "/" + process.env.DBNAME);
-}
+mongoose.connect(mongoUrl).then(() => {
+        console.log('Connected to lunch db');
+    }).catch((error) => {
+        console.log(`Error connceting to db: ${error}`)
+    });
 
-mongoose.connection.once('open', () => {
-    console.log('Connected to lunch db');
-}).on('error', (err) => {
-    console.log('Failed to connect to db: ' + err);
-});
 
 const app = express();
 
-app.use(cors());
+// app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 

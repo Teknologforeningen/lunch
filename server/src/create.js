@@ -3,20 +3,15 @@ const User = require('./models/User');
 const genPasswordHash = require('./utils').genPasswordHash;
 require('dotenv').config({ path: '../.env' });
 
-if(process.env.MONGODB_USER && process.env.MONGODB_PW) {
-    mongoose.connect("mongodb://" + process.env.MONGODB_USER + ":" + process.env.MONGODB_PW + "@" + process.env.DBURL);
-    mongoose.connection.useDb(process.env.DBNAME);
-} else {
-    mongoose.connect("mongodb://" + process.env.DBURL + "/" + process.env.DBNAME);
-}
+const mongoUrl = process.env.MONGODB_USER && process.env.MONGODB_PW
+    ? `mongodb://${process.env.MONGODB_USER}:${process.env.MONGODB_PW}@${process.env.DBURL}/${process.env.DBNAME}?authSource=admin`
+    : `mongodb://${process.env.DBURL}/${process.env.DBNAME}`;
 
-mongoose.connection.once('open', () => {
+mongoose.connect(mongoUrl).then(() => {
     console.log('Connected to lunch db');
-}).on('error', (err) => {
-    console.log('Failed to connect to db: ' + err);
+}).catch((error) => {
+    console.log(`Error connceting to db: ${error}`)
 });
-
-console.log(process.env.ADMIN_PW)
 
 const saltHash = genPasswordHash(process.env.ADMIN_PW);
 

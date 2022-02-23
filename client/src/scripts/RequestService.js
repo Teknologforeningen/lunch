@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = process.env.REACT_APP_BACKEND_URL;
+const url = `${process.env.REACT_APP_BACKEND_URL}/api/`;
 
 axios.interceptors.request.use(
     config => {
