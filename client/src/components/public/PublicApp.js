@@ -21,7 +21,7 @@ const PublicApp = () => {
                     < PublicMenu/>
                     < PublicPosts/>
                     < PublicPrices/>
-                    <div className="ig-container">
+                    {/* <div className="ig-container">
                         <div className="taggbox-container">
                             <div className="taggbox-socialwall" data-wall-id="76141" view-url="https://widget.taggbox.com/76141">
                             </div>
@@ -29,7 +29,7 @@ const PublicApp = () => {
                             <script src="https://widget.taggbox.com/embed.min.js" type="text/javascript"></script>
                             </Helmet>
                         </div>
-                    </div>
+                    </div> */}
                     
                 </div>
             < PublicFooter/>
