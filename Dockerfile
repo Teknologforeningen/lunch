@@ -1,4 +1,4 @@
-FROM node:14
+FROM node:18
 WORKDIR /opt/app
 COPY client/ ./client/
 RUN cd client && npm install && npm run build

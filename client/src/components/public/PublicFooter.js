@@ -7,7 +7,7 @@ const PublicFooter = () => {
     return (
         <div className="footer">
             <div className="footer-content">
-                {t('ContactUs')}: ekonomichef@tf.fi
+                {t('ContactUs')}: lunch@tf.fi
             </div>
         </div>
     )
