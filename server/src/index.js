@@ -2,10 +2,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+// eslint-disable-next-line no-unused-vars
 const cors = require('cors');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const passport = require("passport");
+const passport = require('passport');
 const issueJWT = require('./utils').issueJWT;
 const validPassword = require('./utils').validPassword;
 
@@ -14,15 +13,15 @@ require('./passport')(passport);
 
 // Models
 const User = require('./models/User');
-const mongoUrl = process.env.MONGODB_USER && process.env.MONGODB_PW
-    ? `mongodb://${process.env.MONGODB_USER}:${process.env.MONGODB_PW}@${process.env.DBURL}/${process.env.DBNAME}?authSource=admin`
-    : `mongodb://${process.env.DBURL}/${process.env.DBNAME}`;
+const mongoUrl = process.env.MONGODB_USER && process.env.MONGODB_PW ?
+  `mongodb://${process.env.MONGODB_USER}:${process.env.MONGODB_PW}@${process.env.DBURL}/${process.env.DBNAME}?authSource=admin` :
+  `mongodb://${process.env.DBURL}/${process.env.DBNAME}`;
 
 mongoose.connect(mongoUrl).then(() => {
-        console.log('Connected to lunch db');
-    }).catch((error) => {
-        console.log(`Error connceting to db: ${error}`)
-    });
+  console.log('Connected to lunch db');
+}).catch((error) => {
+  console.log(`Error connceting to db: ${error}`);
+});
 
 
 const app = express();
@@ -35,27 +34,28 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.post('/api/login', async (req, res) => {
-    try {
-        const { username, password } = req.body;
+  try {
+    const {username, password} = req.body;
 
-        User.findOne({ username: username }, (err, user) => {
-            if (user) {
-                const isValid = validPassword(password, user.hash, user.salt);
-                if (isValid) {
-                    const jwt = issueJWT(user);
-                    return res.status(200).json({ success: true, user: user, token: jwt.token, expiresIn: jwt.expires });
-                } else {
-                    return res.status(401).json({ success: false, msg: "Wrong Credentials" });
-                }
-            } else {
-                return res.status(401).json(err);
-            }
-        });
-
-    } catch (error) {
-        console.log(error)
-        return res.status(401).json(error);
-    }
+    User.findOne({username: username}, (err, user) => {
+      if (user) {
+        const isValid = validPassword(password, user.hash, user.salt);
+        if (isValid) {
+          const jwt = issueJWT(user);
+          return res.status(200).json({
+            success: true, user: user, token: jwt.token, expiresIn: jwt.expires
+          });
+        } else {
+          return res.status(401).json({success: false, msg: 'Wrong Credentials'});
+        }
+      } else {
+        return res.status(401).json(err);
+      }
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(401).json(error);
+  }
 });
 
 const posts = require('./routes/api/posts');
@@ -76,12 +76,12 @@ const path = require('path');
 
 app.use(express.static(path.resolve(__dirname, '../../client/build')));
 app.get('*', (req, res) => {
-   res.sendFile(path.resolve(__dirname, '../../client/build', 'index.html')); 
+  res.sendFile(path.resolve(__dirname, '../../client/build', 'index.html'));
 });
 
 const port = process.env.PORT || 5000;
 
 app.listen(port, (err) => {
-    if (err) return console.log(err);
-    console.log('Server running on port ' +  port);
+  if (err) return console.log(err);
+  console.log('Server running on port ' + port);
 });
