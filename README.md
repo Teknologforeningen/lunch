@@ -1,20 +1,16 @@
 # LUNCH
-A website using a node.js server and a react client written for [Täffä LUNCH](https://lunch.tf.fi) by [Jan Nyberg](https://github.com/Nybbbbe/)
+A website using a node.js server and a react client written for [Täffä LUNCH](https://lunch.tf.fi)
 
+## Running the application
 
-## Prerequisites
-* npm
-* mongo
-
-Or, alternatively if using Docker
+### Prerequisites
 * docker
 * docker-compose
 
-## Running LUNCH in development mode
-The project requires a running mongo database. To start LUNCH in development mode the client and server can be run separately, guidelines in the respective folders.
+To start the application and a postgres database, run
+```
+docker-compose up
+```
+The application can be accessed at [localhost:5000](http://localhost:5000)
 
-## Vars
-Variables should be defined for both the client and server, examples can be found in `client/.env.example` and `server/.env.example`
-
-## Deploying LUNCH
-An example docker deployment using docker-compose can be found in the project
+Environment variables can be defined directly in docker-compose.yml or by using separate .env files for the server and client.

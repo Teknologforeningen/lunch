@@ -1,42 +1,39 @@
 const express = require('express');
-const Announcement = require('../../models/Announcement');
+const { Announcement } = require('../../models/Announcement');
 const passport = require('passport');
 require('../../passport')(passport);
 
 const router = express.Router();
 
-router.get('/:lang', (req, res) => {
-  Announcement.findOne({'language': req.params.lang}, (err, message) => {
-    if (err) {
-      return res.status(500).json({
-        title: 'server error',
-        error: err,
-      });
-    } else {
-      res.send(message);
-    }
-  });
+router.get('/:lang', async (req, res) => {
+  try {
+    const announcement = await Announcement.findOne({ where: { language: req.params.lang } });
+    return res.send(announcement);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send();
+  }
 });
 
-router.post('/:lang', passport.authenticate('jwt', {session: false}), (req, res) => {
-  const msgObj = req.body.obj;
-  Announcement.findOne({'language': req.params.lang}, (err, message) => {
-    if (err) {
-      return res.status(500).json({
-        title: 'server error',
-        error: err,
-      });
-    } else if (!message) {
-      const newMessage = new Announcement({
-        message: msgObj.message,
+router.post('/:lang', passport.authenticate('jwt', {session: false}), async (req, res) => {
+  const announcementObj = req.body.obj;
+  try {
+    const announcement = await Announcement.findOne({ where: { language: req.params.lang } });
+    if (!announcement) {
+      const newAnnouncement = Announcement.build({
+        message: announcementObj.message,
         language: req.params.lang,
       });
-      newMessage.save();
+      await newAnnouncement.save();
     } else {
-      message.message = msgObj.message;
-      message.save();
+      announcement.message = announcementObj.message;
+      await announcement.save();
     }
-  });
+    return res.status(201).send();
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send();
+  }
 });
 
 module.exports = router;

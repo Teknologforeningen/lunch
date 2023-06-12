@@ -1,28 +1,14 @@
 // Dependencies
 const express = require('express');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-// eslint-disable-next-line no-unused-vars
-const cors = require('cors');
+// const cors = require('cors');
 const passport = require('passport');
-const issueJWT = require('./utils').issueJWT;
-const validPassword = require('./utils').validPassword;
+const setupDatabase = require('./models');
 
 require('dotenv').config();
 require('./passport')(passport);
 
-// Models
-const User = require('./models/User');
-const mongoUrl = process.env.MONGODB_USER && process.env.MONGODB_PW ?
-  `mongodb://${process.env.MONGODB_USER}:${process.env.MONGODB_PW}@${process.env.DBURL}/${process.env.DBNAME}?authSource=admin` :
-  `mongodb://${process.env.DBURL}/${process.env.DBNAME}`;
-
-mongoose.connect(mongoUrl).then(() => {
-  console.log('Connected to lunch db');
-}).catch((error) => {
-  console.log(`Error connceting to db: ${error}`);
-});
-
+setupDatabase();
 
 const app = express();
 
@@ -33,44 +19,13 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.post('/api/login', async (req, res) => {
-  try {
-    const {username, password} = req.body;
-
-    User.findOne({username: username}, (err, user) => {
-      if (user) {
-        const isValid = validPassword(password, user.hash, user.salt);
-        if (isValid) {
-          const jwt = issueJWT(user);
-          return res.status(200).json({
-            success: true, user: user, token: jwt.token, expiresIn: jwt.expires
-          });
-        } else {
-          return res.status(401).json({success: false, msg: 'Wrong Credentials'});
-        }
-      } else {
-        return res.status(401).json(err);
-      }
-    });
-  } catch (error) {
-    console.log(error);
-    return res.status(401).json(error);
-  }
-});
-
-const posts = require('./routes/api/posts');
-const hours = require('./routes/api/hours');
-const prices = require('./routes/api/prices');
-const messages = require('./routes/api/messages');
-const menu = require('./routes/api/menu');
-const announcemetns = require('./routes/api/annoucements');
-
-app.use('/api/posts', posts);
-app.use('/api/hours', hours);
-app.use('/api/prices', prices);
-app.use('/api/messages', messages);
-app.use('/api/menu', menu);
-app.use('/api/announcements', announcemetns);
+app.use('/api/posts', require('./routes/api/posts'));
+app.use('/api/hours', require('./routes/api/hours'));
+app.use('/api/prices', require('./routes/api/prices'));
+app.use('/api/messages', require('./routes/api/messages'));
+app.use('/api/menu', require('./routes/api/menu'));
+app.use('/api/announcements', require('./routes/api/annoucements'));
+app.use('/api/login', require('./routes/api/login'));
 
 const path = require('path');
 

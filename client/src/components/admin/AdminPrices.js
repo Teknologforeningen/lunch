@@ -117,14 +117,14 @@ const AdminPrices = () => {
                 </TableHead>
                 <TableBody>
                 {Prices.map((price) => (
-                    <TableRow key={price._id}>
+                    <TableRow key={price.id}>
                     <TableCell component="th" scope="row">
                         {price.description}
                     </TableCell>
                     <TableCell align="left">{price.priceStudent}</TableCell>
                     <TableCell align="left">{price.priceNormal}</TableCell>
                     <TableCell align="right">
-                        <IconButton edge="end" aria-label="delete" onClick={() => handleDeleteClick(price._id)}>
+                        <IconButton edge="end" aria-label="delete" onClick={() => handleDeleteClick(price.id)}>
                             <i className="material-icons">delete</i>
                         </IconButton>
                     </TableCell>

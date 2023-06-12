@@ -1,32 +1,46 @@
-const mongoose = require('mongoose');
-const User = require('./models/User');
+const { Sequelize } = require('sequelize');
+const { User } = require('./models/User');
 const genPasswordHash = require('./utils').genPasswordHash;
+const setupDatabase = require('./models');
 require('dotenv').config();
 
-const mongoUrl = process.env.MONGODB_USER && process.env.MONGODB_PW ?
-  `mongodb://${process.env.MONGODB_USER}:${process.env.MONGODB_PW}@${process.env.DBURL}/${process.env.DBNAME}?authSource=admin` :
-  `mongodb://${process.env.DBURL}/${process.env.DBNAME}`;
+setupDatabase();
 
-mongoose.connect(mongoUrl).then(() => {
+const sequelize = new Sequelize(
+  process.env.DB_NAME || 'lunch', 
+  process.env.DB_USER || 'lunch', 
+  process.env.DB_PW || 'lunch', 
+  {
+    host: process.env.DBURL || 'localhost',
+    dialect: 'postgres'
+  }
+);
+  
+sequelize.authenticate().then(() => {
   console.log('Connected to lunch db');
 }).catch((error) => {
   console.log(`Error connceting to db: ${error}`);
 });
 
-const saltHash = genPasswordHash(process.env.ADMIN_PW);
+const saltHash = genPasswordHash('password');
 
-User.deleteMany({}, () => console.log('Old users deleted'));
 const salt = saltHash.salt;
 const hash = saltHash.hash;
-const username = process.env.ADMIN_USER;
-const newUser = new User({
+const username = 'admin';
+
+const newUser = User.build({
   username: username,
   hash: hash,
   salt: salt,
 });
+
 newUser.save().then(() => {
   console.log(`${username} saved successfully`);
-  mongoose.connection.close();
 }).catch((error) => {
   console.log(`Could not save user: ${error}`);
+}).finally(() => {
+  sequelize.close();
 });
+
+
+

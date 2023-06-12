@@ -1,13 +1,38 @@
-version: "3.5"
+version: '3.5'
 
 services:
   lunch:
     build: .
-    ports:
-      - '5000:5000'
+    container_name: lunch
+    restart: always
+    environment:
+      - DB_HOST=${DB_HOST:-lunchdb}
+      - DB_USER=${DB_USER:-lunch}
+      - DB_PW=${DB_PW:-lunch}
+      - DB_NAME=${DB_NAME:-lunch}
     depends_on:
-      - mongo
-  mongo:
-    image: mongo:4.4
+      - db
+    networks:
+      - db
     ports:
-      - '27017:27017'
+      - 5000:5000
+
+  db:
+    container_name: lunchdb
+    image: postgres:14-alpine
+    environment:
+      - POSTGRES_USER=${DB_USER:-lunch}
+      - POSTGRES_PASSWORD=${DB_PW:-lunch}      
+      - POSTGRES_DB=${DB_NAME:-lunch}
+    networks:
+      - db
+    volumes:
+      - /var/lib/postgresql/data/:/data/db
+
+volumes:
+  db-data:
+    driver: local
+
+networks:
+  db:
+    driver: bridge

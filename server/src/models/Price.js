@@ -1,12 +1,34 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const { Model, DataTypes } = require('sequelize');
 
-const priceSchema = new Schema({
-  description: String,
-  priceStudent: Number,
-  priceNormal: Number,
-  language: String,
-});
+class Price extends Model {}
 
-const Price = mongoose.model('Price', priceSchema);
-module.exports = Price;
+const setupPriceModel = (sequelize) => {
+  Price.init(
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+      },
+      description: {
+        type: DataTypes.STRING,
+      },
+      priceStudent: {
+        type: DataTypes.FLOAT,
+      },
+      priceNormal: {
+        type: DataTypes.FLOAT,
+      },
+      language: {
+        type: DataTypes.STRING,
+        allowNull: false
+      }, 
+    }, {
+      sequelize,
+      modelName: 'Price'
+    }
+  );
+  return Price;
+};
+
+module.exports = { setupPriceModel, Price };

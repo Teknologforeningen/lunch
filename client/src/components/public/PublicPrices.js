@@ -39,7 +39,7 @@ const PublicPrices = () => {
                 </TableHead>
                 <TableBody>
                 {Prices.map((price) => (
-                    <TableRow key={price._id}>
+                    <TableRow key={price.id}>
                     <TableCell component="th" scope="row">
                         {price.description}
                     </TableCell>

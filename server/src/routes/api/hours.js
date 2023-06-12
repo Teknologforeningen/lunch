@@ -1,44 +1,40 @@
 const express = require('express');
-const Hours = require('../../models/Hours');
+const { Hours } = require('../../models/Hours');
 const passport = require('passport');
 require('../../passport')(passport);
 
 const router = express.Router();
 
-router.get('/:lang', (req, res) => {
-  Hours.findOne({'language': req.params.lang}, (err, hours) => {
-    if (err) {
-      return res.status(500).json({
-        title: 'server error',
-        error: err,
-      });
-    } else {
-      return res.send(hours);
-    }
-  });
+router.get('/:lang', async (req, res) => {
+  try {
+    const hours = await Hours.findOne({ where: { language: req.params.lang } });
+    return res.send(hours);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send();
+  }
 });
 
-router.post('/:lang', passport.authenticate('jwt', {session: false}), (req, res) => {
-  const hours = req.body.obj.hours;
-  Hours.findOne({'language': req.params.lang}, (err, dbHours) => {
-    if (err) {
-      return res.status(500).json({
-        title: 'server error',
-        error: err,
-      });
-    } else if (!dbHours) {
-      const newHours = new Hours({
-        hours: hours,
+router.post('/:lang', passport.authenticate('jwt', {session: false}), async (req, res) => {
+  try {
+    const updatedHours = req.body.obj.hours;
+    const hours = await Hours.findOne({ where: { language: req.params.lang } });
+    if (!hours) {
+      const newHours = Hours.build({
+        hours: updatedHours,
         language: req.params.lang,
       });
-      newHours.save();
+      await newHours.save();
       return res.status(200).json({msg: 'New hours added'});
     } else {
-      dbHours.hours = hours;
-      dbHours.save();
+      hours.hours = updatedHours;
+      await hours.save();
       return res.status(200).json({msg: 'Hours updated'});
     }
-  });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send();
+  }
 });
 
 module.exports = router;

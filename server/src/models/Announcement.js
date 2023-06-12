@@ -1,10 +1,29 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const { Model, DataTypes } = require('sequelize');
 
-const announcementSchema = new Schema({
-  message: String,
-  language: String,
-});
+class Announcement extends Model {}
 
-const Announcements = mongoose.model('Announcements', announcementSchema);
-module.exports = Announcements;
+const setupAnnouncementModel = (sequelize) => {
+  Announcement.init(
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+      },
+      message: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      language: {
+        type: DataTypes.STRING,
+        allowNull: false
+      }, 
+    }, {
+      sequelize,
+      modelName: 'Announcement'
+    }
+  );
+  return Announcement;
+};
+
+module.exports = { setupAnnouncementModel, Announcement };

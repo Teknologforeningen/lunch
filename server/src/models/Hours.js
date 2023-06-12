@@ -1,10 +1,29 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const { Model, DataTypes } = require('sequelize');
 
-const hoursSchema = new Schema({
-  hours: String,
-  language: String,
-});
+class Hours extends Model {}
 
-const Hours = mongoose.model('Hours', hoursSchema);
-module.exports = Hours;
+const setupHoursModel = (sequelize) => {
+  Hours.init(
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+      },
+      hours: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      language: {
+        type: DataTypes.STRING,
+        allowNull: false
+      }, 
+    }, {
+      sequelize,
+      modelName: 'Hours'
+    }
+  );
+  return Hours;
+};
+
+module.exports = { setupHoursModel, Hours };

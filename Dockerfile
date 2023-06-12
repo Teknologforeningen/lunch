@@ -1,11 +1,24 @@
-FROM node:18
-WORKDIR /opt/app
-COPY client/ ./client/
-RUN cd client && npm install && npm run build
+FROM node:19 AS react-builder
+WORKDIR /lunch
 
-COPY server/ ./server/
-RUN cd server && npm install
+COPY client/package.json .
+COPY client/package-lock.json .
+RUN npm install
 
+COPY client .
+RUN npm run build
+
+
+FROM node:19-alpine
+WORKDIR /lunch/server
+
+COPY --from=react-builder /lunch/build /lunch/client/build
+
+COPY server/package.json .
+COPY server/package-lock.json .
+RUN npm install
+
+COPY server .
 EXPOSE 5000
 
-CMD cd server && npm start
+CMD npm start

@@ -114,15 +114,15 @@ const AdminPosts = () => {
             <List dense={false}>
                 {Posts.map(post => {
                     return (
-                        <ListItem key={post._id}>
+                        <ListItem key={post.id}>
                             <ListItemText
                                 primary={post.title}
                             />
                             <ListItemSecondaryAction>
-                                <IconButton edge="end" aria-label="delete" onClick={() => handleDeleteClick(post._id)}>
+                                <IconButton edge="end" aria-label="delete" onClick={() => handleDeleteClick(post.id)}>
                                     <i className="material-icons">delete</i>
                                 </IconButton>
-                                {/* <IconButton edge="end" aria-label="delete" onClick={() => handleVisibilityClick(post._id)}>
+                                {/* <IconButton edge="end" aria-label="delete" onClick={() => handleVisibilityClick(post.id)}>
                                     <i className="material-icons">{post.visible? 'visibility' : 'visibility_off'}</i>
                                 </IconButton>
                                 <IconButton edge="end" aria-label="delete">

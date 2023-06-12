@@ -22,12 +22,10 @@ const validPassword = (password, hash, salt) => {
 };
 
 const issueJWT = (user) => {
-  const _id = user._id;
-
   const expiressIn = '1d';
 
   const payload = {
-    sub: _id,
+    sub: user.id,
     iat: Date.now(),
   };
 

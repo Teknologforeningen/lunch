@@ -33,7 +33,7 @@ const PublicPosts = () => {
             <h1>{t('posts')}</h1>
                 {Posts.map(post => {
                 return (
-                    <Card key={post._id} className="">
+                    <Card key={post.id} className="">
                         <CardActionArea>
                             <CardMedia
                             className=""
@@ -42,7 +42,7 @@ const PublicPosts = () => {
                             style={{
                                 backgroundColor: post.image !== undefined? 'white' : 'red',
                             }}
-                            image={post.image !== undefined? url + 'posts/images/' + post._id : tfLogo}
+                            image={post.image !== undefined? url + 'posts/images/' + post.id : tfLogo}
                             title={post.title}
                             />
                             <CardContent>
