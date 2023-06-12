@@ -7,9 +7,9 @@ const url = process.env.REACT_APP_BACKEND_URL
 axios.interceptors.request.use(
     config => {
         const allowedOrigins = [url];
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('lunchToken');
         if (allowedOrigins.includes(origin)) {
-        config.headers.authorization = `Bearer ${token}`;
+            config.headers.authorization = token;
         }
         return config;
     },
@@ -35,8 +35,8 @@ class RequestService {
             })
             .then (response => {
                 this.setToken(response.data.token);
-                window.localStorage.setItem(
-                    'lunchUser', JSON.stringify(response.data.token)
+                localStorage.setItem(
+                    'lunchToken', JSON.stringify(response.data.token)
                 )
                 resolve(true);
             })
@@ -83,15 +83,12 @@ class RequestService {
     }
 
     static sendDataRequest(endPoint, json) {
-        const token = localStorage.getItem('token');
         return axios({
             method: 'post',
             url: url + endPoint,
             data: json,
             headers: {
-                'Bearer': `${token}`,
                 'Content-Type': 'multipart/form-data',
-
             }
         });
     }

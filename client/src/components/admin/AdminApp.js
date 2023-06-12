@@ -15,10 +15,10 @@ const AdminApp = () => {
     const [isLoggedIn, setLoggedIn] = useState(false);
     
     useEffect(() => {
-        const loggedUserJSON = window.localStorage.getItem('lunchUser')
+        const loggedUserJSON = localStorage.getItem('lunchToken')
         if (loggedUserJSON) {
-          const user = JSON.parse(loggedUserJSON);
-          RequestService.setToken(user.token);
+          const token = JSON.parse(loggedUserJSON);
+          RequestService.setToken(token);
           setLoggedIn(true);
         }
         }, [setLoggedIn])
