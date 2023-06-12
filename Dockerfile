@@ -19,6 +19,8 @@ COPY server/package-lock.json .
 RUN npm install
 
 COPY server .
+RUN npm run init
+
 EXPOSE 5000
 
 CMD npm start

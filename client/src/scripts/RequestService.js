@@ -18,6 +18,9 @@ axios.interceptors.request.use(
 
 class RequestService {
 
+    static setToken(token) {
+        axios.defaults.headers.Authorization = token;
+    }
     static getUrl() {
         return url;
     }
@@ -29,7 +32,10 @@ class RequestService {
                 password: password
             })
             .then (response => {
-                axios.defaults.headers.Authorization = response.data.token;
+                this.setToken(response.data.token);
+                window.localStorage.setItem(
+                    'lunchUser', JSON.stringify(response.data.token)
+                )
                 resolve(true);
             })
             .catch (error => {

@@ -40,7 +40,8 @@ const AdminLogin = ({ loginIn }) => {
         setPasswordValue(e.target.value)
     }
 
-    const handleLogin = () => {
+    const handleLogin = async (e) => {
+        e.preventDefault();
         loginIn(usernameValue, passwordValue)
     }
 
@@ -52,7 +53,7 @@ const AdminLogin = ({ loginIn }) => {
                 <Typography component="h1" variant="h5">
                 Sign in
                 </Typography>
-                <form className={classes.form} noValidate>
+                <form className={classes.form} noValidate onSubmit={handleLogin}>
                 <TextField
                     variant="outlined"
                     margin="normal"
@@ -80,11 +81,11 @@ const AdminLogin = ({ loginIn }) => {
                     onChange={(e) => onPasswordChange(e)}
                 />
                 <Button
+                    type="submit"
                     fullWidth
                     variant="contained"
                     color="primary"
                     className={classes.submit}
-                    onClick={() => handleLogin()}
                 >
                     Sign In
                 </Button>

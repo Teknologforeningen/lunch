@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AdminLogin from './AdminLogin';
+import AdminLogout from './AdminLogout';
 import AdminLanguageSelector from './AdminLanguageSelector';
 import AdminMessage from './AdminMessage';
 import AdminOpeningHours from './AdminOpeningHours';
@@ -13,6 +14,15 @@ import './AdminApp.scss';
 const AdminApp = () => {
     const [isLoggedIn, setLoggedIn] = useState(false);
     
+    useEffect(() => {
+        const loggedUserJSON = window.localStorage.getItem('lunchUser')
+        if (loggedUserJSON) {
+          const user = JSON.parse(loggedUserJSON);
+          RequestService.setToken(user.token);
+          setLoggedIn(true);
+        }
+        }, [setLoggedIn])
+
     const handleLogin = (username, password) => {
         RequestService.login(username, password).then(loginStatus => {
             setLoggedIn(loginStatus);
@@ -30,6 +40,7 @@ const AdminApp = () => {
                 < AdminOpeningHours/>
                 < AdminPosts/>
                 < AdminPrices/>
+                < AdminLogout/>
             </div>
         </div>
         :

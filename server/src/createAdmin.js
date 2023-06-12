@@ -4,6 +4,33 @@ const genPasswordHash = require('./utils').genPasswordHash;
 const setupDatabase = require('./models');
 require('dotenv').config();
 
+const findOrCreateAdmin = async () => {
+  try {
+    const username = process.env.ADMIN_USER;
+    if (await User.findOne({ where: { username: username } })) {
+      console.log(`User with username: ${username} already exists, not creating`);
+      return;
+    }
+    const saltHash = genPasswordHash(process.env.ADMIN_PW);
+    const newUser = User.build({
+      username: username,
+      hash: saltHash.hash,
+      salt: saltHash.salt,
+    });
+    await newUser.save();
+    console.log(`User: ${username} created successfully`);  
+  } catch(error) {
+    console.log(`Could not save user: ${error}`);
+  } finally {
+    sequelize.close();
+  }
+};
+
+if (!process.env.ADMIN_USER || !process.env.ADMIN_PW) {
+  return;
+}
+
+
 setupDatabase();
 
 const sequelize = new Sequelize(
@@ -22,25 +49,4 @@ sequelize.authenticate().then(() => {
   console.log(`Error connceting to db: ${error}`);
 });
 
-const saltHash = genPasswordHash('password');
-
-const salt = saltHash.salt;
-const hash = saltHash.hash;
-const username = 'admin';
-
-const newUser = User.build({
-  username: username,
-  hash: hash,
-  salt: salt,
-});
-
-newUser.save().then(() => {
-  console.log(`${username} saved successfully`);
-}).catch((error) => {
-  console.log(`Could not save user: ${error}`);
-}).finally(() => {
-  sequelize.close();
-});
-
-
-
+findOrCreateAdmin();
