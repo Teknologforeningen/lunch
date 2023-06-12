@@ -27,10 +27,10 @@ router.post('/', passport.authenticate('jwt', {session: false}), async (req, res
       await price.save();
     } else {
       const newPrice = new Price({
-        description: price.description,
-        priceStudent: price.priceStudent,
-        priceNormal: price.priceNormal,
-        language: price.language,
+        description: priceObj.description,
+        priceStudent: priceObj.priceStudent,
+        priceNormal: priceObj.priceNormal,
+        language: priceObj.language,
       });
       await newPrice.save();
     }
@@ -43,7 +43,7 @@ router.post('/', passport.authenticate('jwt', {session: false}), async (req, res
 
 router.delete('/:id', passport.authenticate('jwt', {session: false}), async (req, res) => {
   try {
-    const price = Price.findByPk(req.params.id);
+    const price = await Price.findByPk(req.params.id);
     if (price) {
       await price.destroy();
       res.status(204).send();

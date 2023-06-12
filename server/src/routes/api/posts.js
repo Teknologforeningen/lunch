@@ -78,7 +78,7 @@ router.put('/:id', passport.authenticate('jwt', {session: false}), async (req, r
 
 router.delete('/:id', passport.authenticate('jwt', {session: false}), async (req, res) => {
   try {
-    const post = Post.findByPk(req.params.id);
+    const post = await Post.findByPk(req.params.id);
     if (post) {
       await post.destroy();
       res.status(204).send();
