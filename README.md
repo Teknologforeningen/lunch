@@ -13,4 +13,6 @@ docker-compose up
 ```
 The application can be accessed at [localhost:5000](http://localhost:5000)
 
-Environment variables can be defined directly in docker-compose.yml or by using separate .env files for the server and client.
+Environment variables can be defined directly in docker-compose.yml or by using separate .env files for the server and client
+
+An admin user can be created by defining the env variables `ADMIN_USER` and `ADMIN_PW` when starting the application
